@@ -53,6 +53,36 @@ return [
             'strict' => true,
             'engine' => null,
         ],
+		
+		'sps_mysql' => [
+            'driver' => 'mysql',
+            'host' => env('SPS_DB_HOST'),
+            'port' => env('SPS_DB_PORT'),
+            'database' => env('SPS_DB_DATABASE'),
+            'username' => env('SPS_DB_USERNAME'),
+            'password' => env('SPS_DB_PASSWORD'),
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'strict' => true,
+            'engine' => null,
+        ],
+		
+		'lib_mysql' => [
+            'driver' => 'mysql',
+            'host' => env('LIB_DB_HOST'),
+            'port' => env('LIB_DB_PORT'),
+            'database' => env('LIB_DB_DATABASE'),
+            'username' => env('LIB_DB_USERNAME'),
+            'password' => env('LIB_DB_PASSWORD'),
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'strict' => true,
+            'engine' => null,
+        ],
 
         'pgsql' => [
             'driver' => 'pgsql',

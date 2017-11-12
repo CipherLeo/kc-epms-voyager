@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
-class PrTracker extends Model
+class ResponsibleUnit extends Model
 {
     use SoftDeletes;
 	protected $dates = ['deleted_at'];
