@@ -80,7 +80,7 @@
 				data: {
 					labels: ["Processed", "Awarded", "Posted to KC-NCDDP Website"],
 					datasets: [{
-						label: 'Procurement Count',
+						label: 'Procurement Count (Goods)',
 						data: [95, 90, 70],
 						backgroundColor: [
 							'rgba(255, 99, 132, 0.2)',
