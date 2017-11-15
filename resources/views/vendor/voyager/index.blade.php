@@ -63,7 +63,7 @@
 					</div>
 				</div>
 				<div class="panel-body">
-					<canvas id="procurement_accomplishment_chart" width="100%"></canvas>
+					<canvas id="procurement_accomplishment_chart" width="100%" height="70px"></canvas>
 				</div>
 			</div>
 		</div>
@@ -80,24 +80,57 @@
 				data: {
 					labels: ["Processed", "Awarded", "Posted to KC-NCDDP Website"],
 					datasets: [{
-						label: 'Procurement Count (Goods)',
-						data: [95, 90, 70],
+						label: 'Goods',
+						data: [99, 95, 74],
 						backgroundColor: [
-							'rgba(255, 99, 132, 0.2)',
-							'rgba(54, 162, 235, 0.2)',
-							'rgba(255, 206, 86, 0.2)'
+							'rgba(0, 255, 255, 0.2)',
+							'rgba(0, 255, 255, 0.2)',
+							'rgba(0, 255, 255, 0.2)'
 						],
 						borderColor: [
-							'rgba(255,99,132,1)',
-							'rgba(54, 162, 235, 1)',
-							'rgba(255, 206, 86, 1)'
+							'rgba(0, 255, 255, 1)',
+							'rgba(0, 255, 255, 1)',
+							'rgba(0, 255, 255, 1)'
 						],
 						borderWidth: 1
-					}]
+					},{
+						label: 'Non-consulting Services',
+						data: [333, 273, 177],
+						backgroundColor: [
+							'rgba(0, 255, 22, 0.2)',
+							'rgba(0, 255, 22, 0.2)',
+							'rgba(0, 255, 22, 0.2)'
+						],
+						borderColor: [
+							'rgba(0, 255, 22, 1)',
+							'rgba(0, 255, 22, 1)',
+							'rgba(0, 255, 22, 1)'
+						],
+						borderWidth: 1
+					},{
+						label: 'Consulting Services (TAF)',
+						data: [23, 23, 6],
+						backgroundColor: [
+							'rgba(255, 0, 0, 0.2)',
+							'rgba(255, 0, 0, 0.2)',
+							'rgba(255, 0, 0, 0.2)'
+						],
+						borderColor: [
+							'rgba(255, 0, 0, 1)',
+							'rgba(255, 0, 0, 1)',
+							'rgba(255, 0, 0, 1)'
+						],
+						borderWidth: 1
+					}
+					]
 				},
 				options: {
 					scales: {
+						xAxes: [{
+							stacked: true
+						}],
 						yAxes: [{
+							stacked: true,
 							ticks: {
 								beginAtZero:true
 							}

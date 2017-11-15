@@ -17,4 +17,7 @@ class PrTracker extends Model
     public function responsible_unit(){
         return $this->belongsTo('App\ResponsibleUnit');
     }
+    public function supplemental_requests(){
+        return $this->hasMany('App\SupplementalRequest');
+    }
 }

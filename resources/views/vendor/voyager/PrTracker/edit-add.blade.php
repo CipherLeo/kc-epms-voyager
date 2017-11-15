@@ -50,7 +50,7 @@
                                 $dataTypeRows = $dataType->{(isset($dataTypeContent->id) ? 'editRows' : 'addRows' )};
                             @endphp
 
-                            @foreach($dataTypeRows as $row)
+                            @foreach($dataTypeRows as $iterator => $row)
                                 <!-- GET THE DISPLAY OPTIONS -->
                                 @php
                                     $options = json_decode($row->details);
@@ -66,7 +66,19 @@
                                         @if($row->type == 'relationship')
                                             @include('voyager::formfields.relationship')
                                         @else
-                                            {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
+                                            @if ( $iterator == 0 )
+                                                <input 
+                                                    class="form-control" 
+                                                    readonly 
+                                                    required 
+                                                    data-name="Tracker Number" 
+                                                    name="no" 
+                                                    type="text" 
+                                                    placeholder="Tracker Number" 
+                                                    value="{{ $latest_pr_tracker_no }}">
+                                            @else
+                                                {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
+                                            @endif
                                         @endif
 
                                         @foreach (app('voyager')->afterFormFields($row, $dataType, $dataTypeContent) as $after)
