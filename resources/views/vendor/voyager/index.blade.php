@@ -81,7 +81,7 @@
 					labels: ["Processed", "Awarded", "Posted to KC-NCDDP Website"],
 					datasets: [{
 						label: 'Goods',
-						data: [99, 95, 74],
+						data: [104, 100, 79],
 						backgroundColor: [
 							'rgba(0, 255, 255, 0.2)',
 							'rgba(0, 255, 255, 0.2)',
@@ -95,7 +95,7 @@
 						borderWidth: 1
 					},{
 						label: 'Non-consulting Services',
-						data: [333, 273, 177],
+						data: [333, 273, 180],
 						backgroundColor: [
 							'rgba(0, 255, 22, 0.2)',
 							'rgba(0, 255, 22, 0.2)',
@@ -109,7 +109,7 @@
 						borderWidth: 1
 					},{
 						label: 'Consulting Services (TAF)',
-						data: [23, 23, 6],
+						data: [24, 24, 7],
 						backgroundColor: [
 							'rgba(255, 0, 0, 0.2)',
 							'rgba(255, 0, 0, 0.2)',

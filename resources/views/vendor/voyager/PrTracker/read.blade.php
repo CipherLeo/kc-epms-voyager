@@ -27,6 +27,11 @@
                         </tr>
 
                         <tr>
+                            <td>Proponent</td>
+                            <td>{{ $pr_tracker->proponent }}</td>
+                        </tr>
+                        
+                        <tr>
                             <td>Unit Responsible</td>
                             <td>{{ $pr_tracker->responsible_unit->name }}</td>
                         </tr>

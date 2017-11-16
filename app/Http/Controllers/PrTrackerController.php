@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Voyager\VoyagerBreadController as BaseVoyagerBreadController;
-use TCG\Voyager\Facades\Voyager;
 use TCG\Voyager\Events\BreadDataAdded;
+use TCG\Voyager\Facades\Voyager;
 
 use Illuminate\Http\Request;
 use App\PrTracker;
@@ -12,7 +12,7 @@ use App\PrTracker;
 class PrTrackerController extends BaseVoyagerBreadController
 {
     public function show(Request $request, $id){
-        $pr_tracker = PrTracker::with(['responsible_unit'])->find($id);
+        $pr_tracker = PrTracker::with(['responsible_unit', 'supplemental_requests'])->find($id);
         return view('vendor.voyager.PrTracker.read', [
             'pr_tracker' => $pr_tracker,
         ]);
@@ -20,22 +20,7 @@ class PrTrackerController extends BaseVoyagerBreadController
 
 
     public function create(Request $request){
-        $latest_pr_tracker_no = PrTracker::withTrashed()->max('no');
-        if(!$latest_pr_tracker_no){
-            $latest_pr_tracker_no = 'KC-' . date('Y') . '-' . date('m') . '-' . '0001';
-        } else{
-            $tracker_codes = explode('-', $latest_pr_tracker_no);
-            $tracker_codes[3] = intval($tracker_codes[3]) + 1;
-            if($tracker_codes[3] < 10){
-                $tracker_codes[3] = '000' . $tracker_codes[3];
-            } 
-            elseif($tracker_codes[3] < 100){
-                $tracker_codes[3] = '00' . $tracker_codes[3];
-            } else{
-                $tracker_codes[3] = '0' . $tracker_codes[3];
-            }
-            $latest_pr_tracker_no = $tracker_codes[0] . '-' . $tracker_codes[1] . '-' . $tracker_codes[2] . '-' . $tracker_codes[3];
-        }
+        $latest_pr_tracker_no = PrTracker::getLastNo();
 
         $slug = $this->getSlug($request);
         
@@ -59,12 +44,21 @@ class PrTrackerController extends BaseVoyagerBreadController
         // Check if BREAD is Translatable
         $isModelTranslatable = is_bread_translatable($dataTypeContent);
 
-        return Voyager::view('vendor.voyager.PrTracker.edit-add', compact(
+        return Voyager::view('vendor.voyager.PrTracker.add', compact(
             'dataType', 
             'dataTypeContent', 
             'isModelTranslatable',
             'latest_pr_tracker_no'
         ));
+    }
+
+
+    public function edit(Request $request, $id){
+        $pr_tracker = PrTracker::with(['responsible_unit', 'supplemental_requests'])->find($id);
+
+        return view('vendor.voyager.PrTracker.edit', [
+            'pr_tracker' => $pr_tracker,
+        ]);
     }
 
 
@@ -89,9 +83,9 @@ class PrTrackerController extends BaseVoyagerBreadController
             event(new BreadDataAdded($dataType, $data));
 
             return redirect()
-                ->route("voyager.{$dataType->slug}.index")
+                ->route("voyager.pr-trackers.edit", ['id' => $data['id']])
                 ->with([
-                        'message'    => __('voyager.generic.successfully_added_new')." {$dataType->display_name_singular}",
+                        'message'    => __('voyager.generic.successfully_added_new')." {$dataType->display_name_singular} " . $data['no'],
                         'alert-type' => 'success',
                     ]);
         }
