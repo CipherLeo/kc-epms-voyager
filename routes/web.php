@@ -30,4 +30,5 @@ Route::group(['prefix' => 'admin'], function () {
 
     // Supplemental Request
     Route::post('supplemental-requests', ['as' => 'voyager.supplemental-requests.store', 'uses' => 'SupplementalRequestController@store']);
+    Route::delete('supplemental-requests/{supplemental_request}', ['as' => 'voyager.supplemental-requests.destroy', 'uses' => 'SupplementalRequestController@destroy']);
 });

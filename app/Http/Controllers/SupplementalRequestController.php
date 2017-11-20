@@ -15,7 +15,7 @@ class SupplementalRequestController extends BaseVoyagerBreadController
         $supplemental_request = new SupplementalRequest;
 
         $supplemental_request->pr_tracker_id = $request->pr_tracker_id;
-        $supplemental_request->pr_no = '123';
+        $supplemental_request->pr_no = '123';//temp
         $supplemental_request->purpose = $request->purpose;
         $supplemental_request->proposed_date = $request->proposed_date;
         $supplemental_request->proposed_venue = $request->proposed_venue;
@@ -24,5 +24,12 @@ class SupplementalRequestController extends BaseVoyagerBreadController
         $supplemental_request->save();
 
         return json_encode($supplemental_request);
+    }
+
+    
+    public function destroy(Request $request, $id){
+        $supplemental_request = SupplementalRequest::find($id);
+        $supplemental_request->delete();
+        return 'Deleted successfully';
     }
 }

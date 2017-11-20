@@ -70,10 +70,10 @@
                         <div class="form-group">
                             <div class="btn-group" role="group" aria-label="...">
                                 <button v-on:click="isSupplemental = false" type="button" class="btn btn-default">
-                                    <i v-bind:class="{'voyager-check-circle' : !isSupplemental}" style="color : green;"></i> PR from PPMP
+                                    <i v-bind:class="{'voyager-check-circle' : !isSupplemental, 'animated' : !isSupplemental, 'flip' : !isSupplemental}" style="color : green;"></i> PR from PPMP
                                 </button>
                                 <button v-on:click="isSupplemental = true" type="button" class="btn btn-default">
-                                    <i v-bind:class="{'voyager-check-circle' : isSupplemental}" style="color : green;"></i> Supplemental PPMP
+                                    <i v-bind:class="{'voyager-check-circle' : isSupplemental, 'animated' : isSupplemental, 'flip' : isSupplemental}" style="color : green;"></i> Supplemental PPMP
                                 </button>
                             </div>
                         </div>
@@ -148,28 +148,31 @@
                     </h3>
                 </div>
                 <div class="panel-body">
-                    <table class="table table-hover table-responsive">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Request ID</th>
-                                <th>Purpose</th>
-                                <th>Date Created</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="(supplemental_request, index) in pr_tracker.supplemental_requests">
-                                <td>@{{ ++index }}</td>
-                                <td>@{{ supplemental_request.id }}</td>
-                                <td>@{{ supplemental_request.purpose }}</td>
-                                <td>@{{ supplemental_request.created_at }}</td>
-                                <td>
-
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <template v-if="pr_tracker.supplemental_requests.length > 0">
+                        <table class="table table-hover table-responsive">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Request ID</th>
+                                    <th>Purpose</th>
+                                    <th>Date Created</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="animated fadeInRight" v-for="(supplemental_request, index) in pr_tracker.supplemental_requests">
+                                    <td>@{{ ++index }}</td>
+                                    <td>@{{ supplemental_request.id }}</td>
+                                    <td>@{{ supplemental_request.purpose }}</td>
+                                    <td>@{{ supplemental_request.created_at }}</td>
+                                    <td>
+                                        <button class="btn btn-warning"><i class="voyager-pen"></i></button>
+                                        <button class="btn btn-danger" v-on:click.prevent="delete_pr(--index);"><i class="voyager-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </template>
                 </div>
             </div>
         </div>
@@ -205,9 +208,18 @@
                                 }
                             });
                         }
+                    },
+                    delete_pr: function(supplemental_request_id){
+                        var self = this;
+                        // TO DO: delete from database.
+                        self.pr_tracker.supplemental_requests.splice(supplemental_request_id, 1);
                     }
                 }
             });
         });
     </script>
+@endsection
+
+@section('css')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css">
 @endsection
