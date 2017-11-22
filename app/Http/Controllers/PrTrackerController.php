@@ -20,7 +20,7 @@ class PrTrackerController extends BaseVoyagerBreadController
 
 
     public function create(Request $request){
-        $latest_pr_tracker_no = PrTracker::getLastNo();
+        $latest_pr_tracker_no = PrTracker::getNewCode();
 
         $slug = $this->getSlug($request);
         

@@ -22,7 +22,7 @@ class PrTracker extends Model
     }
 
     // CUSTOM
-    public static function getLastNo(){
+    public static function getNewCode(){
         $latest_pr_tracker_no = PrTracker::withTrashed()->max('no');
         if(!$latest_pr_tracker_no){
             $latest_pr_tracker_no = 'KC-' . date('Y') . '-' . date('m') . '-' . '0001';
