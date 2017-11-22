@@ -1,7 +1,8 @@
 @extends('voyager::master')
 
 @section('css')
-<meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css">
 @stop
 
 <title>{{ $pr_tracker->no }}</title>
@@ -70,10 +71,22 @@
                         <div class="form-group">
                             <div class="btn-group" role="group" aria-label="...">
                                 <button v-on:click="isSupplemental = false" type="button" class="btn btn-default">
-                                    <i v-bind:class="{'voyager-check-circle' : !isSupplemental, 'animated' : !isSupplemental, 'flip' : !isSupplemental}" style="color : green;"></i> PR from PPMP
+                                    <transition
+                                        enter-active-class="animated fadeIn"
+                                        leave-active-class="animated fadeOut"
+                                    >
+                                        <i v-if="!isSupplemental" style="color:green;" class="voyager-check-circle"></i> 
+                                    </transition>
+                                    PR from PPMP
                                 </button>
                                 <button v-on:click="isSupplemental = true" type="button" class="btn btn-default">
-                                    <i v-bind:class="{'voyager-check-circle' : isSupplemental, 'animated' : isSupplemental, 'flip' : isSupplemental}" style="color : green;"></i> Supplemental PPMP
+                                    <transition
+                                        enter-active-class="animated fadeIn"
+                                        leave-active-class="animated fadeOut"
+                                    >
+                                        <i v-if="isSupplemental" style="color:green;" class="voyager-check-circle"></i> 
+                                    </transition>
+                                    Supplemental PPMP
                                 </button>
                             </div>
                         </div>
@@ -152,20 +165,24 @@
                         <table class="table table-hover table-responsive">
                             <thead>
                                 <tr>
-                                    <th>#</th>
-                                    <th>Request ID</th>
-                                    <th>Purpose</th>
-                                    <th>Date Created</th>
-                                    <th>Actions</th>
+                                    <th style="text-align:center;">#</th>
+                                    <th style="text-align:center;">Request ID</th>
+                                    <th style="text-align:center;">Purpose</th>
+                                    <th style="text-align:center;">Date Created</th>
+                                    <th style="text-align:center;">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr class="animated fadeInRight" v-for="(supplemental_request, index) in pr_tracker.supplemental_requests">
+                            <tbody
+                                is="transition-group"
+                                enter-active-class="animated tada"
+                                leave-active-class="animated bounceOutRight"
+                            >
+                                <tr v-for="(supplemental_request, index) in pr_tracker.supplemental_requests" v-bind:key="supplemental_request.id">
                                     <td>@{{ ++index }}</td>
                                     <td>@{{ supplemental_request.id }}</td>
                                     <td>@{{ supplemental_request.purpose }}</td>
                                     <td>@{{ supplemental_request.created_at }}</td>
-                                    <td>
+                                    <td style="text-align:center;">
                                         <button class="btn btn-warning"><i class="voyager-pen"></i></button>
                                         <button class="btn btn-danger" v-on:click.prevent="delete_pr(--index);"><i class="voyager-trash"></i></button>
                                     </td>
@@ -173,8 +190,8 @@
                             </tbody>
                         </table>
                     </template>
-                </div>
-            </div>
+                </div><!-- panel-body -->
+            </div><!-- SPPMP-List -->
         </div>
 
     </div>
@@ -183,6 +200,7 @@
 @section('javascript')
     <script>
         $(document).ready(function(){
+
             var vue_app = new Vue({
                 el: '#vue_app',
                 data: {
@@ -218,8 +236,4 @@
             });
         });
     </script>
-@endsection
-
-@section('css')
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css">
 @endsection
