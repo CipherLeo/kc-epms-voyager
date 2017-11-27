@@ -179,7 +179,7 @@
                             >
                                 <tr v-for="(supplemental_request, index) in pr_tracker.supplemental_requests" v-bind:key="supplemental_request.id">
                                     <td>@{{ ++index }}</td>
-                                    <td>@{{ supplemental_request.id }}</td>
+                                    <td>@{{ supplemental_request.pr_no }}</td>
                                     <td>@{{ supplemental_request.purpose }}</td>
                                     <td>@{{ supplemental_request.created_at }}</td>
                                     <td style="text-align:center;">

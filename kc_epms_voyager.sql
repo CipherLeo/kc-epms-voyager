@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 15, 2017 at 09:46 AM
+-- Generation Time: Nov 27, 2017 at 09:15 AM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
@@ -169,7 +169,21 @@ INSERT INTO `data_rows` (`id`, `data_type_id`, `field`, `type`, `display_name`, 
 (112, 15, 'created_at', 'timestamp', 'Created At', 0, 1, 1, 1, 0, 1, NULL, 7),
 (113, 15, 'updated_at', 'timestamp', 'Updated At', 0, 0, 0, 0, 0, 0, NULL, 8),
 (114, 15, 'deleted_at', 'timestamp', 'Deleted At', 0, 1, 1, 1, 1, 1, NULL, 9),
-(115, 15, 'supplemental_ppmp_belongsto_supplemental_request_relationship', 'relationship', 'supplemental_requests', 0, 1, 1, 1, 1, 1, '{\"model\":\"App\\\\SupplementalRequest\",\"table\":\"supplemental_requests\",\"type\":\"belongsTo\",\"column\":\"supplemental_request_id\",\"key\":\"id\",\"label\":\"pr_no\",\"pivot_table\":\"categories\",\"pivot\":\"0\"}', 10);
+(115, 15, 'supplemental_ppmp_belongsto_supplemental_request_relationship', 'relationship', 'supplemental_requests', 0, 1, 1, 1, 1, 1, '{\"model\":\"App\\\\SupplementalRequest\",\"table\":\"supplemental_requests\",\"type\":\"belongsTo\",\"column\":\"supplemental_request_id\",\"key\":\"id\",\"label\":\"pr_no\",\"pivot_table\":\"categories\",\"pivot\":\"0\"}', 10),
+(116, 16, 'pr_no', 'checkbox', 'Pr No', 1, 1, 1, 0, 0, 0, NULL, 1),
+(117, 16, 'div_id', 'checkbox', 'Div Id', 0, 1, 1, 0, 0, 0, NULL, 2),
+(118, 16, 'doc_date', 'checkbox', 'Doc Date', 0, 0, 1, 0, 0, 0, NULL, 3),
+(119, 16, 'purpose', 'checkbox', 'Purpose', 0, 1, 1, 0, 0, 0, NULL, 4),
+(120, 16, 'tot_amount', 'checkbox', 'Tot Amount', 0, 1, 1, 0, 0, 0, NULL, 5),
+(121, 16, 'requested_by', 'checkbox', 'Requested By', 0, 1, 1, 0, 0, 0, NULL, 6),
+(122, 16, 'date_encoded', 'checkbox', 'Date Encoded', 0, 1, 1, 0, 0, 0, NULL, 7),
+(123, 16, 'place', 'checkbox', 'Place', 0, 0, 1, 0, 0, 0, NULL, 8),
+(124, 16, 'responsible', 'checkbox', 'Responsible', 0, 0, 1, 0, 0, 0, NULL, 9),
+(125, 16, 'prov_code', 'checkbox', 'Prov Code', 0, 0, 0, 0, 0, 0, NULL, 10),
+(126, 16, 'city_code', 'checkbox', 'City Code', 0, 0, 0, 0, 0, 0, NULL, 11),
+(127, 16, 'brgy_code', 'checkbox', 'Brgy Code', 0, 1, 0, 0, 0, 0, NULL, 12),
+(128, 16, 'encoded_by', 'checkbox', 'Encoded By', 0, 1, 1, 0, 0, 0, NULL, 13),
+(129, 16, 'username', 'checkbox', 'Username', 0, 0, 1, 0, 0, 0, NULL, 14);
 
 -- --------------------------------------------------------
 
@@ -211,7 +225,8 @@ INSERT INTO `data_types` (`id`, `name`, `slug`, `display_name_singular`, `displa
 (12, 'responsible_units', 'responsible-units', 'Responsible Unit', 'Responsible Units', 'voyager-people', 'App\\ResponsibleUnit', NULL, NULL, NULL, 1, 1, '2017-11-09 17:57:27', '2017-11-09 17:57:27'),
 (13, 'supplemental_requests', 'supplemental-requests', 'Supplemental Request', 'Supplemental Requests', 'voyager-basket', 'App\\SupplementalRequest', NULL, NULL, NULL, 1, 1, '2017-11-12 21:55:58', '2017-11-12 21:58:33'),
 (14, 'supplemental_ppmp_months', 'supplemental-ppmp-months', 'Supplemental Ppmp Month', 'Supplemental Ppmp Months', NULL, 'App\\SupplementalPpmpMonth', NULL, NULL, NULL, 1, 0, '2017-11-13 17:06:13', '2017-11-13 17:06:13'),
-(15, 'supplemental_ppmp', 'supplemental-ppmp', 'Supplemental Ppmp', 'Supplemental Ppmps', NULL, 'App\\SupplementalPpmp', NULL, NULL, NULL, 1, 0, '2017-11-13 20:50:10', '2017-11-13 20:50:10');
+(15, 'supplemental_ppmp', 'supplemental-ppmp', 'Supplemental Ppmp', 'Supplemental Ppmps', NULL, 'App\\SupplementalPpmp', NULL, NULL, NULL, 1, 0, '2017-11-13 20:50:10', '2017-11-13 20:50:10'),
+(16, 'sps_purchase_requests', 'sps-purchase-requests', 'Purchase Request', 'Purchase Requests', 'voyager-basket', 'App\\SpsPurchaseRequest', NULL, NULL, NULL, 1, 1, '2017-11-26 19:19:56', '2017-11-26 19:31:35');
 
 -- --------------------------------------------------------
 
@@ -261,17 +276,18 @@ CREATE TABLE `menu_items` (
 
 INSERT INTO `menu_items` (`id`, `menu_id`, `title`, `url`, `target`, `icon_class`, `color`, `parent_id`, `order`, `created_at`, `updated_at`, `route`, `parameters`) VALUES
 (1, 1, 'Dashboard', '', '_self', 'voyager-pie-chart', '#000000', NULL, 1, '2017-11-08 23:33:21', '2017-11-13 21:38:51', 'voyager.dashboard', 'null'),
-(2, 1, 'Media', '', '_self', 'voyager-images', NULL, NULL, 6, '2017-11-08 23:33:22', '2017-11-12 22:07:29', 'voyager.media.index', NULL),
-(4, 1, 'Users', '', '_self', 'voyager-person', NULL, NULL, 5, '2017-11-08 23:33:22', '2017-11-12 22:07:29', 'voyager.users.index', NULL),
+(2, 1, 'Media', '', '_self', 'voyager-images', NULL, NULL, 7, '2017-11-08 23:33:22', '2017-11-26 19:33:03', 'voyager.media.index', NULL),
+(4, 1, 'Users', '', '_self', 'voyager-person', NULL, NULL, 6, '2017-11-08 23:33:22', '2017-11-26 19:33:03', 'voyager.users.index', NULL),
 (7, 1, 'Roles', '', '_self', 'voyager-lock', NULL, 8, 3, '2017-11-08 23:33:22', '2017-11-12 22:07:14', 'voyager.roles.index', NULL),
-(8, 1, 'Tools', '', '_self', 'voyager-tools', NULL, NULL, 4, '2017-11-08 23:33:22', '2017-11-12 22:07:29', NULL, NULL),
+(8, 1, 'Tools', '', '_self', 'voyager-tools', NULL, NULL, 5, '2017-11-08 23:33:22', '2017-11-26 19:33:03', NULL, NULL),
 (9, 1, 'Menu Builder', '', '_self', 'voyager-list', NULL, 8, 1, '2017-11-08 23:33:22', '2017-11-12 22:07:13', 'voyager.menus.index', NULL),
 (10, 1, 'Database', '', '_self', 'voyager-data', NULL, 8, 2, '2017-11-08 23:33:22', '2017-11-12 22:07:14', 'voyager.database.index', NULL),
 (11, 1, 'Compass', '/admin/compass', '_self', 'voyager-compass', NULL, 8, 4, '2017-11-08 23:33:22', '2017-11-12 22:07:09', NULL, NULL),
 (12, 1, 'Hooks', '/admin/hooks', '_self', 'voyager-hook', NULL, 8, 5, '2017-11-08 23:33:22', '2017-11-12 22:07:09', NULL, NULL),
-(13, 1, 'Settings', '', '_self', 'voyager-settings', NULL, NULL, 7, '2017-11-08 23:33:22', '2017-11-12 22:07:09', 'voyager.settings.index', NULL),
+(13, 1, 'Settings', '', '_self', 'voyager-settings', NULL, NULL, 8, '2017-11-08 23:33:22', '2017-11-26 19:33:03', 'voyager.settings.index', NULL),
 (14, 1, 'PR Trackers', '/admin/pr-trackers', '_self', 'voyager-compass', '#000000', NULL, 2, '2017-11-09 00:18:46', '2017-11-12 18:50:47', NULL, ''),
-(16, 1, 'Supplemental Requests', '/admin/supplemental-requests', '_self', 'voyager-basket', '#000000', NULL, 3, '2017-11-12 21:55:59', '2017-11-12 22:01:48', NULL, '');
+(16, 1, 'Supplemental Requests', '/admin/supplemental-requests', '_self', 'voyager-bag', '#000000', NULL, 4, '2017-11-12 21:55:59', '2017-11-26 19:33:28', NULL, ''),
+(17, 1, 'Purchase Requests', '/admin/sps-purchase-requests', '_self', 'voyager-basket', '#000000', NULL, 3, '2017-11-26 19:19:57', '2017-11-26 19:33:16', NULL, '');
 
 -- --------------------------------------------------------
 
@@ -440,7 +456,12 @@ INSERT INTO `permissions` (`id`, `key`, `table_name`, `created_at`, `updated_at`
 (76, 'read_supplemental_ppmp', 'supplemental_ppmp', '2017-11-13 20:50:10', '2017-11-13 20:50:10', NULL),
 (77, 'edit_supplemental_ppmp', 'supplemental_ppmp', '2017-11-13 20:50:10', '2017-11-13 20:50:10', NULL),
 (78, 'add_supplemental_ppmp', 'supplemental_ppmp', '2017-11-13 20:50:10', '2017-11-13 20:50:10', NULL),
-(79, 'delete_supplemental_ppmp', 'supplemental_ppmp', '2017-11-13 20:50:10', '2017-11-13 20:50:10', NULL);
+(79, 'delete_supplemental_ppmp', 'supplemental_ppmp', '2017-11-13 20:50:10', '2017-11-13 20:50:10', NULL),
+(80, 'browse_sps_purchase_requests', 'sps_purchase_requests', '2017-11-26 19:19:57', '2017-11-26 19:19:57', NULL),
+(81, 'read_sps_purchase_requests', 'sps_purchase_requests', '2017-11-26 19:19:57', '2017-11-26 19:19:57', NULL),
+(82, 'edit_sps_purchase_requests', 'sps_purchase_requests', '2017-11-26 19:19:57', '2017-11-26 19:19:57', NULL),
+(83, 'add_sps_purchase_requests', 'sps_purchase_requests', '2017-11-26 19:19:57', '2017-11-26 19:19:57', NULL),
+(84, 'delete_sps_purchase_requests', 'sps_purchase_requests', '2017-11-26 19:19:57', '2017-11-26 19:19:57', NULL);
 
 -- --------------------------------------------------------
 
@@ -528,7 +549,12 @@ INSERT INTO `permission_role` (`permission_id`, `role_id`) VALUES
 (71, 1),
 (72, 1),
 (73, 1),
-(74, 1);
+(74, 1),
+(80, 1),
+(81, 1),
+(82, 1),
+(83, 1),
+(84, 1);
 
 -- --------------------------------------------------------
 
@@ -3042,21 +3068,7 @@ CREATE TABLE `pr_trackers` (
 --
 
 INSERT INTO `pr_trackers` (`id`, `no`, `title`, `proponent`, `responsible_unit_id`, `section_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(6, 'KC-2017-11-0001', 'tracker increment', 'Jonason', 1, 1, '2017-11-14 18:25:01', '2017-11-14 20:08:46', '2017-11-14 20:08:46'),
-(7, 'KC-2017-11-0002', 'sdlfjsdlfjk', 'lsdjkflsdkjf', 1, 1, '2017-11-14 18:25:14', '2017-11-14 18:25:35', '2017-11-14 18:25:35'),
-(8, 'KC-2017-11-0003', 'sdfklwoeiru', 'lsdfkjsdf', 1, 1, '2017-11-14 18:25:24', '2017-11-14 20:08:46', '2017-11-14 20:08:46'),
-(9, 'KC-2017-11-0004', 'qeoiuqwe', 'woeiwer', 1, 1, '2017-11-14 18:25:55', '2017-11-14 18:26:08', '2017-11-14 18:26:08'),
-(10, 'KC-2017-11-0005', 'asdasd', 'asd', 1, 1, '2017-11-14 19:27:17', '2017-11-14 20:08:46', '2017-11-14 20:08:46'),
-(11, 'KC-2017-11-0006', 'controller test', 'Jonason', 1, 1, '2017-11-14 19:51:41', '2017-11-14 20:08:46', '2017-11-14 20:08:46'),
-(15, 'KC-2017-11-0007', 'controller test', 'Jonason', 1, 1, '2017-11-14 19:58:34', '2017-11-14 20:08:46', '2017-11-14 20:08:46'),
-(16, 'KC-2017-11-0008', 'controller test', 'Jonason', 1, 1, '2017-11-14 19:58:48', '2017-11-14 20:08:46', '2017-11-14 20:08:46'),
-(17, 'KC-2017-11-0009', 'asd', 'asd', 1, 1, '2017-11-14 20:00:06', '2017-11-14 20:08:47', '2017-11-14 20:08:47'),
-(19, 'KC-2017-11-0010', 'asd', 'asd', 1, 1, '2017-11-14 20:01:04', '2017-11-14 20:08:18', '2017-11-14 20:08:18'),
-(20, 'KC-2017-11-0011', 'asd', 'asd', 1, 1, '2017-11-14 20:02:39', '2017-11-14 20:08:18', '2017-11-14 20:08:18'),
-(22, 'KC-2017-11-0012', 'asd', 'asd', 1, 1, '2017-11-14 20:03:04', '2017-11-14 20:08:18', '2017-11-14 20:08:18'),
-(25, 'KC-2017-11-0013', 'Office Supplies', 'Jonason R. Macalalag', 1, 1, '2017-11-14 20:09:49', '2017-11-14 20:09:49', NULL),
-(26, 'KC-2017-11-0014', 'Purchase Request testing', 'Jonason', 1, 1, '2017-11-14 21:53:50', '2017-11-14 21:53:50', NULL),
-(27, 'KC-2017-11-0015', 'Purchase Request testing', 'Jonason', 1, 1, '2017-11-14 21:55:11', '2017-11-14 21:55:11', NULL);
+(31, 'KC-2017-11-0001', 'Procurement Test', 'Jonason R. Macalalag', 3, 15, '2017-11-26 22:09:58', '2017-11-26 22:09:58', NULL);
 
 -- --------------------------------------------------------
 
@@ -3146,6 +3158,29 @@ INSERT INTO `settings` (`id`, `key`, `display_name`, `value`, `details`, `type`,
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `sps_purchase_requests`
+--
+
+CREATE TABLE `sps_purchase_requests` (
+  `pr_no` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `div_id` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `doc_date` date DEFAULT NULL,
+  `purpose` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tot_amount` decimal(10,0) DEFAULT NULL,
+  `requested_by` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `date_encoded` datetime DEFAULT NULL,
+  `place` text COLLATE utf8_unicode_ci,
+  `responsible` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `prov_code` char(9) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `city_code` char(9) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `brgy_code` char(9) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `encoded_by` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `username` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `supplemental_ppmp`
 --
 
@@ -3188,11 +3223,18 @@ CREATE TABLE `supplemental_requests` (
   `purpose` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `proposed_date` varchar(256) COLLATE utf8_unicode_ci DEFAULT NULL,
   `proposed_venue` varchar(256) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `proposed_amount` decimal(10,0) DEFAULT NULL,
+  `proposed_amount` decimal(11,2) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `supplemental_requests`
+--
+
+INSERT INTO `supplemental_requests` (`id`, `pr_tracker_id`, `pr_no`, `purpose`, `proposed_date`, `proposed_venue`, `proposed_amount`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(44, 31, '', 'sdlkfj', '12/12/2017', 'Surigao', '12345.00', '2017-11-26 22:54:25', '2017-11-26 22:54:25', NULL);
 
 -- --------------------------------------------------------
 
@@ -3362,6 +3404,12 @@ ALTER TABLE `settings`
   ADD UNIQUE KEY `settings_key_unique` (`key`);
 
 --
+-- Indexes for table `sps_purchase_requests`
+--
+ALTER TABLE `sps_purchase_requests`
+  ADD PRIMARY KEY (`pr_no`);
+
+--
 -- Indexes for table `supplemental_ppmp`
 --
 ALTER TABLE `supplemental_ppmp`
@@ -3409,12 +3457,12 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `data_rows`
 --
 ALTER TABLE `data_rows`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=116;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
 --
 -- AUTO_INCREMENT for table `data_types`
 --
 ALTER TABLE `data_types`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT for table `menus`
 --
@@ -3424,7 +3472,7 @@ ALTER TABLE `menus`
 -- AUTO_INCREMENT for table `menu_items`
 --
 ALTER TABLE `menu_items`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `migrations`
 --
@@ -3439,7 +3487,7 @@ ALTER TABLE `pages`
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
 --
 -- AUTO_INCREMENT for table `permission_groups`
 --
@@ -3454,7 +3502,7 @@ ALTER TABLE `posts`
 -- AUTO_INCREMENT for table `pr_trackers`
 --
 ALTER TABLE `pr_trackers`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 --
 -- AUTO_INCREMENT for table `responsible_units`
 --
@@ -3489,7 +3537,7 @@ ALTER TABLE `supplemental_ppmp_months`
 -- AUTO_INCREMENT for table `supplemental_requests`
 --
 ALTER TABLE `supplemental_requests`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 --
 -- AUTO_INCREMENT for table `translations`
 --
