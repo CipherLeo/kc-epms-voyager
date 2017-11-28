@@ -214,7 +214,9 @@
                     </template>
                 </div><!-- panel-body -->
             </div><!-- SPPMP-List -->
-        </div>
+        </div><!-- PPMP & SPPMP end -->
+
+        <span class="need_to_be_rendered" datetime="2016-07-07T09:24:17Z">July 07, 2016</span>
 
     </div>
 @endsection
@@ -222,6 +224,8 @@
 @section('javascript')
     <script>
         $(document).ready(function(){
+
+            timeago().render($('.need_to_be_rendered'));
 
             var vue_app = new Vue({
                 el: '#vue_app',
@@ -254,6 +258,7 @@
                                 success: function(stored_supplemental_request){
                                     self.request = {pr_tracker_id: @php echo $pr_tracker->id; @endphp};
                                     self.pr_tracker.supplemental_requests.push(stored_supplemental_request);
+                                    toastr.success("Successfully added Supplemental Request.");
                                 }
                             });
                         } else{ // request is non-supplemental
@@ -281,8 +286,8 @@
 
                                 self.tracker_proponent_edit_mode = false;
                                 self.tracker_title_edit_mode = false;
-                                
-                                alert("Updated PR Tracker " + updated_pr_tracker.no);
+
+                                toastr.success("Updated PR Tracker " + updated_pr_tracker.no);
                             }
                         });
                     }

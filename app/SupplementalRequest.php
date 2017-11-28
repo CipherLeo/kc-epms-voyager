@@ -14,7 +14,7 @@ class SupplementalRequest extends Model
         $latest_pr_no = '';
         $latest_pr = SupplementalRequest::orderBy('id', 'desc')->first();
 
-        if($latest_pr != null){
+        if($latest_pr){
             $latest_pr_no_fragments = explode('-', $latest_pr->pr_no);
             
             $month_now = date('m');
