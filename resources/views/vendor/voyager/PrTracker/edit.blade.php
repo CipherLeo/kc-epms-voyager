@@ -30,26 +30,48 @@
 					</div>
                 </div>
                 <div class="panel-body">
-                    <table class="table table-hover table-responsive">
-                        <tbody>
-                            <tr>
-                                <td><i class="voyager-character">&nbsp;</i><b>TITLE:</b></td>
-                                <td>{{ $pr_tracker->title }}</td>
-                            </tr>
-                            <tr>
-                            <tr>
-                                <td><i class="voyager-person"></i>&nbsp;<b>PROPONENT:</b></td>
-                                <td>{{ $pr_tracker->proponent }}</td>
-                            </tr>
-                            <tr>
-                                <td><i class="voyager-calendar"></i>&nbsp;<b>DATE CREATED:</b></td>
-                                <td>{{ $pr_tracker->created_at }}</td>
-                            </tr>
-                            <td><i class="voyager-watch"></i>&nbsp;<b>LAST UPDATED:</b></td>
-                                <td>{{ $pr_tracker->updated_at }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <form action="">
+                        <table class="table table-hover table-responsive">
+                            <tbody>
+                                <tr>
+                                    <td><i class="voyager-character">&nbsp;</i><b>TITLE:</b></td>
+                                    <td v-on:mouseOver="hovered_tracker_title = true" v-on:mouseLeave="hovered_tracker_title = false">
+                                        <template v-if="tracker_title_edit_mode">
+                                            <input type="text" class="form-control" v-model="pr_tracker.title">
+                                        </template>
+                                        <template v-else>
+                                            @{{ pr_tracker.title }}
+                                            <button v-on:click.prevent="tracker_title_edit_mode = true" v-show="hovered_tracker_title" class="btn btn-default pull-right"><i class="voyager-pen"></i></button>
+                                        </template>
+                                    </td>
+                                </tr>
+                                <tr>
+                                <tr>
+                                    <td><i class="voyager-person"></i>&nbsp;<b>PROPONENT:</b></td>
+                                    <td v-on:mouseOver="hovered_tracker_proponent = true" v-on:mouseLeave="hovered_tracker_proponent = false">
+                                    <template v-if="tracker_proponent_edit_mode">
+                                        <input type="text" class="form-control" v-model="pr_tracker.proponent">
+                                    </template>
+                                    <template v-else>
+                                        @{{ pr_tracker.proponent }}
+                                        <button v-on:click.prevent="tracker_proponent_edit_mode = true" v-show="hovered_tracker_proponent" class="btn btn-default pull-right"><i class="voyager-pen"></i></button>
+                                    </template>
+                                </td>
+                                </tr>
+                                <tr>
+                                    <td><i class="voyager-calendar"></i>&nbsp;<b>DATE CREATED:</b></td>
+                                    <td>@{{ pr_tracker.created_at }}</td>
+                                </tr>
+                                <td><i class="voyager-watch"></i>&nbsp;<b>LAST UPDATED:</b></td>
+                                    <td>@{{ pr_tracker.updated_at }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button v-if="(tracker_title_edit_mode || tracker_proponent_edit_mode)" v-on:click.prevent="update_pr_tracker()" class="btn btn-warning pull-right">
+                            <i class="voyager-pen"></i>
+                            UPDATE
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -204,6 +226,15 @@
             var vue_app = new Vue({
                 el: '#vue_app',
                 data: {
+                    // UI
+                    tracker_info_edit_mode: false,
+                    tracker_title_edit_mode: false,
+                    tracker_proponent_edit_mode: false,
+
+                    hovered_tracker_title: false,
+                    hovered_tracker_proponent: false,
+                    // UI end
+
                     pr_tracker: <?php echo $pr_tracker;?>,
                     isSupplemental: false,
 
@@ -225,12 +256,35 @@
                                     self.pr_tracker.supplemental_requests.push(stored_supplemental_request);
                                 }
                             });
+                        } else{ // request is non-supplemental
+
                         }
                     },
+
+
                     delete_pr: function(supplemental_request_id){
                         var self = this;
                         // TO DO: delete from database.
                         self.pr_tracker.supplemental_requests.splice(supplemental_request_id, 1);
+                    },
+
+
+                    update_pr_tracker: function(){
+                        var self = this;
+                        $.ajax({
+                            url: "@php echo route('voyager.pr-trackers.update', ['pr_tracker' => $pr_tracker->id]); @endphp",
+                            method: 'PUT',
+                            dataType: 'JSON',
+                            data: self.pr_tracker,
+                            success: function(updated_pr_tracker){
+                                self.pr_tracker.updated_at = updated_pr_tracker.updated_at;
+
+                                self.tracker_proponent_edit_mode = false;
+                                self.tracker_title_edit_mode = false;
+                                
+                                alert("Updated PR Tracker " + updated_pr_tracker.no);
+                            }
+                        });
                     }
                 }
             });

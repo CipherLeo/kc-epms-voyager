@@ -62,6 +62,16 @@ class PrTrackerController extends BaseVoyagerBreadController
     }
 
 
+    public function update(Request $request, $id){
+        $pr_tracker = PrTracker::find($id);
+        $pr_tracker->title = $request->title;
+        $pr_tracker->proponent = $request->proponent;
+
+        $pr_tracker->save();
+        return response()->json($pr_tracker);
+    }
+
+
     public function store(Request $request){
         $slug = $this->getSlug($request);
 

@@ -26,6 +26,7 @@ Route::group(['prefix' => 'admin'], function () {
     // PR-TRACKERS
     Route::get('pr-trackers/{pr_tracker}', ['as' => 'voyager.pr-trackers.show', 'uses' => 'PrTrackerController@show']);
     Route::get('pr-trackers/create', ['as' => 'voyager.pr-trackers.create', 'uses' => 'PrTrackerController@create']);
+    Route::put('pr-trackers/{pr_tracker}', ['as' => 'voyager.pr-trackers.update', 'uses' => 'PrTrackerController@update']);
     Route::post('pr-trackers', ['as' => 'voyager.pr-trackers.store', 'uses' => 'PrTrackerController@store']);
 
     // Supplemental Request
